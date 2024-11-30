@@ -33,7 +33,9 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('card.index') }}">{{ __('Cards') }}</a>
                         </li>
-
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('categories.index') }}">{{ __('Categories') }}</a>
+                        </li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->
