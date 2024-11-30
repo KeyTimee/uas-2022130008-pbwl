@@ -10,6 +10,7 @@
                         <th>#ID</th>
                         <th>Category Name</th>
                         <th>Description</th>
+                        <th>Is Active?</th>
                         <th>Aksi</th>
                     </tr>
                 </thead>
@@ -20,6 +21,7 @@
                             <td>{{ $category->id }}</td>
                             <td>{{ $category->name }}</td>
                             <td>{{ $category->description }}</td>
+                            <td>{{ $category->is_active ? 'Yes' : 'No' }}</td>
                             <td>
                                 <div class="btn-group" role="group">
                                     <a class="btn btn-warning" href="{{ route('categories.edit', $category) }}">

@@ -28,6 +28,14 @@
                             name="description" id="description" value="{{ old('description') }}">
                     </div>
 
+                    <div class="col-12 mt-3">
+                        <label class="form-label" for="is_active">Is Active</label>
+                        <select class="form-control @error('is_active') is-invalid @enderror" name="is_active" id="is_active">
+                            <option value="1" {{ old('is_active') == '1' ? 'selected' : '' }}>Yes</option>
+                            <option value="0" {{ old('is_active') == '0' ? 'selected' : '' }}>No</option>
+                        </select>
+                    </div>
+
                     <button class="btn btn-primary mt-3" type="submit">Add</button>
                 </div>
             </form>

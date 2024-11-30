@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Card;
+use App\Models\Category;
 use Illuminate\Http\Request;
 
 class CardController extends Controller
@@ -10,6 +11,7 @@ class CardController extends Controller
     public function __construct()
     {
         $this->middleware('auth')->except('show');
+        // $this->middleware('admin')->except('show');
     }
     /**
      * Display a listing of the resource.
@@ -25,7 +27,8 @@ class CardController extends Controller
      */
     public function create()
     {
-        return view('card.create');
+        $categories = Category::where('is_active', true)->get();
+        return view('card.create', compact('categories'));
 
         if ($request->hasFile('photo')) {
             $file = $request->file('photo');
@@ -45,13 +48,13 @@ class CardController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'type' => 'required|in:Minion,Spell',
-            // 'class_id' => 'required|exists:card_classes,id',
             'mana' => 'required|integer|min:0',
             'attack' => 'nullable|integer|min:0',
             'health' => 'nullable|integer|min:0',
             'description' => 'required|string',
             'is_legendary' => 'required|boolean',
             'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'category_id' => 'nullable|exists:categories,id',
         ]);
 
         $is_legendary = $request->input('is_legendary', false);
@@ -84,7 +87,8 @@ class CardController extends Controller
      */
     public function edit(Card $card)
     {
-        return view('card.edit', compact('card'));
+        $categories = Category::where('is_active', true)->get();
+        return view('card.edit', compact('card', 'categories'));
     }
 
     /**

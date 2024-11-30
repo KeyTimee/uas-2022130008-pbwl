@@ -13,6 +13,7 @@ class CategoryController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+        // $this->middleware('admin');
     }
 
     /**
@@ -40,6 +41,7 @@ class CategoryController extends Controller
         $request->validate([
             'name' => 'required|string|max:50',
             'description' => 'string|max:150',
+            'is_active' => 'required|boolean',
         ]);
 
         Category::create($request->all());
@@ -70,6 +72,7 @@ class CategoryController extends Controller
         $request->validate([
             'name' => 'required|string|max:50',
             'description' => 'string|max:150',
+            'is_active' => 'boolean',
         ]);
 
         $category->update($request->all());

@@ -13,12 +13,17 @@ class Card extends Model
     protected $fillable = [
         'name',
         'type',
-        // 'class_id',
         'mana',
         'attack',
         'health',
         'description',
         'photo',
         'is_legendary',
+        'category_id',
     ];
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
 }

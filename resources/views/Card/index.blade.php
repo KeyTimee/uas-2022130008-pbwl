@@ -11,7 +11,7 @@
                         <th>Photo</th>
                         <th>Name</th>
                         <th>Type</th>
-                        {{-- <th>Class</th> --}}
+                        <th>Class/Category</th>
                         <th>Mana</th>
                         <th>Attack</th>
                         <th>Health</th>
@@ -26,7 +26,7 @@
                         <tr>
                             <td>{{ '#' . str_pad($card->id, 4, '0', STR_PAD_LEFT) }}</td>
                             <td>
-                                <img src="{{ Storage::url($card->photo) }}" class="img-thumbnail w-50">
+                                <img src="{{ Storage::url($card->photo) }}" class="img-thumbnail" style="width: 100px; height: 100px; object-fit: cover;">
                             </td>
                             <td>
                                 <a href="{{ route('card.show', $card) }}">
@@ -34,7 +34,7 @@
                                 </a>
                             </td>
                             <td>{{ $card->type }}</td>
-                            {{-- <td>{{ $card->Class->name }}</td> --}}
+                            <td>{{ $card->category->name ?? 'Neutral' }}</td>
                             <td>{{ $card->mana }}</td>
                             <td>{{ $card->attack }}</td>
                             <td>{{ $card->health }}</td>
