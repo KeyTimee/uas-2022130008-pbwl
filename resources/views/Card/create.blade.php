@@ -32,21 +32,6 @@
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
-                    {{-- <div class="col-12">
-                        <label class="form-label" for="class_id">Class</label>
-                        <select class="form-select @error('class_id') is-invalid @enderror" aria-label="Select Class"
-                            name="class_id" id="class_id">
-                            <option value="" disabled {{ old('class_id') ? '' : 'selected' }}>Select Class</option>
-                            @foreach ($classes as $class)
-                                <option value="{{ $class->id }}" {{ old('class_id') == $class->id ? 'selected' : '' }}>
-                                    {{ $class->name }}
-                                </option>
-                            @endforeach
-                        </select>
-                        @error('class_id')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                        @enderror
-                    </div> --}}
                     <div class="col-6">
                         <label class="form-label" for="mana">Mana</label>
                         <input class="form-control @error('mana') is-invalid @enderror" type="number" name="mana"

@@ -44,4 +44,9 @@ class User extends Authenticatable
         'password' => 'hashed',
         'is_admin' => 'boolean',
     ];
+
+    public function cards()
+{
+    return $this->belongsToMany(Card::class, 'cards_user')->withPivot('quantity');
+}
 }

@@ -21,7 +21,7 @@
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'HS Deck Builder') }}
+                    HS Deck Builder
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
@@ -32,12 +32,20 @@
                     <ul class="navbar-nav me-auto">
                         @auth
                             @if (Auth::user()->is_admin)
+                                <!-- Menu untuk admin -->
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ route('card.index') }}">{{ __('Cards') }}</a>
                                 </li>
-
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ route('categories.index') }}">{{ __('Class/Categories') }}</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('deck.index') }}">{{ __('Deck') }}</a>
+                                </li>
+                            @else
+                                <!-- Menu untuk pengguna non-admin -->
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('deck.index') }}">{{ __('Deck') }}</a>
                                 </li>
                             @endif
                         @endauth

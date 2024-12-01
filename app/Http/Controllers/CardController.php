@@ -11,14 +11,14 @@ class CardController extends Controller
     public function __construct()
     {
         $this->middleware('auth')->except('show');
-        // $this->middleware('admin')->except('show');
+        $this->middleware('admin')->except('show');
     }
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $cards = Card::paginate();
+        $cards = Card::paginate(12);
         return view('card.index', compact('cards'));
     }
 

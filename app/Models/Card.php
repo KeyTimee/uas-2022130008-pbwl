@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+
 
 class Card extends Model
 {
@@ -25,5 +27,11 @@ class Card extends Model
     public function category()
     {
         return $this->belongsTo(Category::class);
+    }
+
+    public function users(): BelongsToMany
+    {
+        //withPivot digunakan untuk mengakses kolom 'quantity' pada tabel pivot product_user
+        return $this->belongsToMany(User::class, 'cards_user')->withPivot('quantity');
     }
 }
