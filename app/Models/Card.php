@@ -34,4 +34,9 @@ class Card extends Model
         //withPivot digunakan untuk mengakses kolom 'quantity' pada tabel pivot product_user
         return $this->belongsToMany(User::class, 'cards_user')->withPivot('quantity');
     }
+
+    public function decks()
+    {
+        return $this->belongsToMany(Deck::class)->withPivot('quantity');
+    }
 }

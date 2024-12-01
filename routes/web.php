@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CardController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DeckController;
+use App\Http\Controllers\DeckCardsController;
 use App\Http\Controllers\MainController;
 
 /*
@@ -16,16 +17,23 @@ use App\Http\Controllers\MainController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
-Route::get('/', MainController::class)->name('main');
-
-Auth::routes();
+Route::get('/', function () {
+    return redirect()->route('login');
+});
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::get('/add', MainController::class)->name('main');
+
+Auth::routes();
 
 Route::resource('card', CardController::class);
 Route::resource('categories', CategoryController::class);
 
-Route::get('/deck', [DeckController::class, 'index'])->name('deck.index');
-Route::post('/deck/{card}', [DeckController::class, 'addToDeck'])->name('deck.add');
-Route::delete('/deck/{card}', [DeckController::class, 'removeFromDeck'])->name('deck.remove');
+Route::get('/decks/index', [DeckController::class, 'index'])->name('decks.index');
+Route::post('/decks/create', [DeckController::class, 'create'])->name('decks.create');
+Route::resource('decks', DeckController::class);
+
+Route::get('/deck', [DeckCardsController::class, 'index'])->name('deckcards.index');
+Route::post('/deck/{card}', [DeckCardsController::class, 'addToDeck'])->name('deckcards.add');
+Route::delete('/deck/{card}', [DeckCardsController::class, 'removeFromDeck'])->name('deckcards.remove');

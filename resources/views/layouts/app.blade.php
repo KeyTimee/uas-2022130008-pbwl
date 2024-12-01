@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -15,15 +16,43 @@
 
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+
+    <style>
+        /* Navbar Transparan */
+        .navbar {
+            background-color: rgba(0, 0, 0, 0.4);
+            /* Mengatur transparansi background */
+            backdrop-filter: blur(10px);
+            /* Menambahkan efek blur di belakang navbar */
+            color: white;
+        }
+
+        /* Navbar Text */
+        .navbar-nav .nav-link {
+            color: white !important;
+        }
+
+        .navbar-nav .nav-link:hover {
+            color: #ffcc00 !important;
+            /* Ganti warna saat hover */
+        }
+
+        .navbar-brand {
+            color: white !important;
+        }
+    </style>
 </head>
-<body>
+
+<body style="background: url('{{ asset('storage/hs.jpg') }}') no-repeat center center fixed; background-size: cover;">
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+        <nav class="navbar navbar-expand-md navbar-light shadow-sm">
             <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
+                <a class="navbar-brand" href="{{ url('/home') }}">
                     HS Deck Builder
                 </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
@@ -37,15 +66,19 @@
                                     <a class="nav-link" href="{{ route('card.index') }}">{{ __('Cards') }}</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('categories.index') }}">{{ __('Class/Categories') }}</a>
+                                    <a class="nav-link"
+                                        href="{{ route('categories.index') }}">{{ __('Class/Categories') }}</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('deck.index') }}">{{ __('Deck') }}</a>
+                                    <a class="nav-link" href="{{ route('deckcards.index') }}">{{ __('Deck') }}</a>
                                 </li>
                             @else
                                 <!-- Menu untuk pengguna non-admin -->
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('deck.index') }}">{{ __('Deck') }}</a>
+                                    <a class="nav-link" href="{{ route('deckcards.index') }}">{{ __('Deck') }}</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ url('/add') }}">{{ __('New Deck') }}</a>
                                 </li>
                             @endif
                         @endauth
@@ -68,13 +101,14 @@
                             @endif
                         @else
                             <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
+                                    data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }}
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
+                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
                                     </a>
@@ -95,4 +129,5 @@
         </main>
     </div>
 </body>
+
 </html>

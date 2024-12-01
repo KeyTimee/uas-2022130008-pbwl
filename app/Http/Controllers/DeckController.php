@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Models\Deck;
 use Illuminate\Support\Facades\Auth;
-use App\Models\Card;
+use Illuminate\Http\Request;
 
 class DeckController extends Controller
 {
@@ -12,56 +12,102 @@ class DeckController extends Controller
     {
         $this->middleware('auth');
     }
-
+    /**
+     * Display a listing of the resource.
+     */
     public function index()
     {
-        $cards = Auth::user()->cards;
-        return view('deck', compact('cards'));
+        $decks = Auth::user()->decks;
+        return view('decks.index', compact('decks'));
     }
 
-    public function addToDeck(Card $card, Request $request)
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create(Request $request)
     {
         $user = Auth::user();
-        $deck = $user->cards;
+        $deckName = $request->input('name');
 
-        // Hitung total kartu di deck
-        $totalCardsInDeck = $deck->sum('pivot.quantity');
+        // Membuat deck baru
+        $deck = $user->decks()->create([
+            'name' => $deckName,
+        ]);
 
-        // Periksa jika deck sudah penuh
-        if ($totalCardsInDeck >= 30) {
-            return redirect()->route('deck.index')->with('error', 'Deck sudah mencapai batas maksimum 30 kartu.');
+        // Menambahkan kartu ke deck
+        $cards = $user->cards;  // Ambil kartu yang sudah dipilih
+
+        foreach ($cards as $card) {
+            $deck->cards()->attach($card, ['quantity' => $card->pivot->quantity]);
         }
 
-        // Periksa jika kartu yang ingin ditambahkan sudah mencapai batas
-        $existingCard = $deck->find($card->id);
-        $quantityToAdd = $request->quantity ?? 1;
+        $user->cards()->detach();
 
-        if ($existingCard) {
-            $newQuantity = $existingCard->pivot->quantity + $quantityToAdd;
+        return redirect()->route('decks.index')->with('success', 'Deck berhasil dibuat.');
+    }
 
-            // Cek batas untuk kartu legendary atau kartu biasa
-            if ($card->is_legendary && $newQuantity > 1) {
-                return redirect()->route('deck.index')->with('error', 'Kartu legendary hanya dapat ditambahkan 1 kali ke dalam deck.');
-            } elseif (!$card->is_legendary && $newQuantity > 2) {
-                return redirect()->route('deck.index')->with('error', 'Kartu biasa hanya dapat ditambahkan maksimal 2 salinan ke dalam deck.');
-            }
 
-            // Update jumlah kartu
-            $user->cards()->updateExistingPivot($card, [
-                'quantity' => $newQuantity
-            ]);
-        } else {
-            // Cek batas langsung saat kartu belum ada di deck
-            if ($card->is_legendary && $quantityToAdd > 1) {
-                return redirect()->route('deck.index')->with('error', 'Kartu legendary hanya dapat ditambahkan 1 kali ke dalam deck.');
-            } elseif (!$card->is_legendary && $quantityToAdd > 2) {
-                return redirect()->route('deck.index')->with('error', 'Kartu biasa hanya dapat ditambahkan maksimal 2 salinan ke dalam deck.');
-            }
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(Request $request)
+    {
+        //
+    }
 
-            // Attach kartu ke deck
-            $user->cards()->attach($card, ['quantity' => $quantityToAdd]);
+    /**
+     * Display the specified resource.
+     */
+    public function show()
+    {
+        $decks = Auth::user()->decks;
+        return view('decks.index', compact('decks'));
+    }
+
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(Deck $deck)
+    {
+        // Pastikan deck milik user yang sedang login
+        if ($deck->user_id !== Auth::id()) {
+            abort(403, 'Unauthorized action.');
         }
 
-        return redirect()->route('deck.index')->with('success', 'Kartu berhasil ditambahkan ke deck.');
+        // Tampilkan halaman edit
+        return view('decks.edit', compact('deck'));
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, Deck $deck)
+    {
+        // Pastikan deck milik user yang sedang login
+        if ($deck->user_id !== Auth::id()) {
+            abort(403, 'Unauthorized action.');
+        }
+
+        // Validasi input
+        $request->validate([
+            'name' => 'required|string|max:255',
+        ]);
+
+        // Update nama deck
+        $deck->update([
+            'name' => $request->name,
+        ]);
+
+        return redirect()->route('decks.index')->with('success', 'Deck berhasil diupdate.');
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(Deck $deck)
+    {
+        $deck->delete();
+        return redirect()->route('decks.index');
     }
 }

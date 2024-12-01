@@ -50,7 +50,7 @@
                                         class="btn btn-sm btn-outline-secondary">View</a>
                                 </div>
                                 @auth
-                                    <form action="{{ route('deck.add', $card) }}" method="POST">
+                                    <form action="{{ route('deckcards.add', $card) }}" method="POST">
                                         @csrf
                                         <input type="number" name="quantity" value="1">
                                         <button type="submit" class="btn btn-sm btn-outline-primary">Add to Deck</button>

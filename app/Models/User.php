@@ -46,7 +46,12 @@ class User extends Authenticatable
     ];
 
     public function cards()
-{
-    return $this->belongsToMany(Card::class, 'cards_user')->withPivot('quantity');
-}
+    {
+        return $this->belongsToMany(Card::class, 'cards_user')->withPivot('quantity');
+    }
+
+    public function decks()
+    {
+        return $this->hasMany(Deck::class);
+    }
 }
