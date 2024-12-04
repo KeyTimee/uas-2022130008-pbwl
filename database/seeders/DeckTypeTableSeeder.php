@@ -15,7 +15,7 @@ class DeckTypeTableSeeder extends Seeder
     {
         DB::table('deck_types')->delete();
 
-        DB::table('deck-Types')->insert([
+        DB::table('deck_Types')->insert([
             ['name' => 'Standard', 'description' => 'Only for Standard Mode'],
             ['name' => 'Wild', 'description' => 'For All Games Mode'],
             // Tambahkan kelas lainnya sesuai kebutuhan

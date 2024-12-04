@@ -77,8 +77,9 @@
             <thead>
                 <tr>
                     <th>Name</th>
-                    <th>Cards</th>
                     <th>Deck Types</th>
+                    <th>Deck Class</th>
+                    <th>Cards</th>
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -86,16 +87,17 @@
                 @foreach ($decks as $deck)
                     <tr>
                         <td>{{ $deck->name }}</td>
+                        <td>{{ $deck->deckType->name ?? 'Uncategorized' }}</td>
+                        <td>{{ $deck->deck_class }}</td>
                         <td>
                             @foreach ($deck->cards as $card)
                                 <p>{{ $card->name }} (x{{ $card->pivot->quantity }})</p>
                             @endforeach
                         </td>
-                        <td>{{ $deck->deckType->name ?? 'Uncategorized' }}</td>
                         <td>
                             <div class="btn-group" role="group">
                                 <a class="btn btn-warning mr-2" href="{{ route('decks.edit', $deck) }}">
-                                    Edit Deck Name or Type
+                                    Edit Deck
                                 </a>
                                 <form action="{{ route('decks.destroy', $deck) }}" method="POST">
                                     @csrf

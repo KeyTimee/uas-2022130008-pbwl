@@ -13,6 +13,7 @@ class DeckController extends Controller
     {
         $this->middleware('auth');
     }
+
     /**
      * Display a listing of the resource.
      */
@@ -29,31 +30,53 @@ class DeckController extends Controller
     {
         $user = Auth::user();
         $deckName = $request->input('name');
+        $deckClass = $request->input('deck_class');
+
+        // Validasi input
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'deck_class' => 'required|string|max:255',
+        ]);
 
         // Membuat deck baru
         $deck = $user->decks()->create([
             'name' => $deckName,
+            'deck_class' => $deckClass,
         ]);
 
-        // Menambahkan kartu ke deck
-        $cards = $user->cards;  // Ambil kartu yang sudah dipilih
+        // Menambahkan kartu ke deck (jika ada)
+        $cards = $user->cards; // Ambil kartu yang sudah dipilih
 
         foreach ($cards as $card) {
             $deck->cards()->attach($card, ['quantity' => $card->pivot->quantity]);
         }
 
+        // Hapus kartu dari sementara
         $user->cards()->detach();
 
         return redirect()->route('decks.index')->with('success', 'Deck berhasil dibuat.');
     }
-
 
     /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
     {
-        //
+        $user = Auth::user();
+
+        // Validasi input
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'deck_class' => 'required|string|max:255',
+        ]);
+
+        // Membuat deck baru
+        $deck = $user->decks()->create([
+            'name' => $request->input('name'),
+            'deck_class' => $request->input('deck_class'),
+        ]);
+
+        return redirect()->route('decks.index')->with('success', 'Deck berhasil disimpan.');
     }
 
     /**
@@ -64,7 +87,6 @@ class DeckController extends Controller
         $decks = Auth::user()->decks;
         return view('decks.index', compact('decks'));
     }
-
 
     /**
      * Show the form for editing the specified resource.
@@ -94,12 +116,14 @@ class DeckController extends Controller
         // Validasi input
         $request->validate([
             'name' => 'required|string|max:255',
+            'deck_class' => 'required|string|max:255',
             'deck_type_id' => 'nullable|exists:deck_types,id',
         ]);
 
         // Update nama deck
         $deck->update([
             'name' => $request->name,
+            'deck_class' => $request->deck_class,
             'deck_type_id' => $request->deck_type_id,
         ]);
 
@@ -112,6 +136,6 @@ class DeckController extends Controller
     public function destroy(Deck $deck)
     {
         $deck->delete();
-        return redirect()->route('decks.index');
+        return redirect()->route('decks.index')->with('success', 'Deck berhasil dihapus.');
     }
 }

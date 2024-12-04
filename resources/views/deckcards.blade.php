@@ -2,19 +2,15 @@
 
 @section('content')
     <style>
-        /* Background untuk halaman */
-        /* Background untuk halaman */
         body {
             background-size: cover;
             color: white;
         }
 
-        /* Form Styling */
         .container {
             margin-top: 10px;
             padding: 25px;
             background-color: rgba(0, 0, 0, 0.4);
-            /* Background dengan transparansi */
             border-radius: 15px;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
         }
@@ -22,12 +18,10 @@
         .form-label {
             font-weight: bold;
             color: white;
-            /* Mengubah warna tulisan menjadi putih */
         }
 
         .form-control,
-        .form-select,
-        .form-check-input {
+        .form-select {
             border-radius: 10px;
             background-color: rgba(255, 255, 255, 0.1);
             color: white;
@@ -37,7 +31,6 @@
         .form-control:focus,
         .form-select:focus {
             border-color: #ffcc00;
-            /* Ganti warna border saat fokus */
             box-shadow: 0 0 5px rgba(255, 204, 0, 0.7);
         }
 
@@ -51,26 +44,8 @@
             background-color: #e6b800;
             border-color: #e6b800;
         }
-
-        /* Styling untuk alert error */
-        .alert-danger {
-            background-color: rgba(255, 0, 0, 0.8);
-            border-radius: 5px;
-        }
-
-        .form-check-label {
-            color: white;
-        }
-
-        .form-check-input {
-            margin-left: 10px;
-        }
-
-        .legendary-checkbox {
-            margin-left: 20px;
-            /* Menambah jarak ke kiri */
-        }
     </style>
+
     <div class="container">
         @if (session('success'))
             <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -96,9 +71,20 @@
             @csrf
             <div class="form-group">
                 <label for="name">Deck Name:</label>
-                <input type="text" class="form-control" id="name" name="name" placeholder="Enter deck name"
-                    required>
+                <input type="text" class="form-control" id="name" name="name" placeholder="Enter deck name" required>
             </div>
+
+            <div class="form-group mt-3">
+                <label for="deck_class">Deck Class:</label>
+                <select class="form-select" id="deck_class" name="deck_class" required>
+                    <option value="" disabled selected>Select Class</option>
+                    <option value="Warrior">Warrior</option>
+                    <option value="Mage">Mage</option>
+                    <option value="Druid">Druid</option>
+                    <option value="Hunter">Hunter</option>
+                </select>
+            </div>
+
             <button type="submit" class="btn btn-primary mt-3">Save Deck</button>
         </form>
 
@@ -134,7 +120,7 @@
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="5">Your deck is empty</td>
+                        <td colspan="6">Your deck is empty</td>
                     </tr>
                 @endforelse
             </tbody>

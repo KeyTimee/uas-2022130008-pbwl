@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Deck extends Model
 {
     protected $table = 'decks';
-    protected $fillable = ['user_id', 'name', 'deck_type_id'];
+    protected $fillable = ['user_id', 'name','deck_class', 'deck_type_id'];
 
     public function user()
     {
