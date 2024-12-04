@@ -98,6 +98,7 @@
                     <th>Mana</th>
                     <th>Type</th>
                     <th>Class/Category</th>
+                    <th>Actions</th>
                 </tr>
             </thead>
             <tbody>

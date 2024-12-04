@@ -80,6 +80,19 @@
                 <label for="name">Deck Name:</label>
                 <input type="text" class="form-control" id="name" name="name" value="{{ $deck->name }}" required>
             </div>
+            <div class="col-6">
+                <label class="form-label" for="deck_type_id">Deck Type</label>
+                <select class="form-control @error('deck_type_id') is-invalid @enderror" name="deck_type_id"
+                    id="deck_type_id">
+                    <option value="">Select a category</option>
+                    @foreach ($deckTypes as $deckType)
+                        <option value="{{ $deckType->id }}"
+                            {{ old('deck_type_id', $deck->deck_type_id) == $deckType->id ? 'selected' : '' }}>
+                            {{ $deckType->name }}
+                        </option>
+                    @endforeach
+                </select>
+            </div>
             <button type="submit" class="btn btn-primary mt-3">Update Deck</button>
         </form>
     </div>

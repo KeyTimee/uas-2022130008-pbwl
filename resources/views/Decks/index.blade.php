@@ -78,6 +78,7 @@
                 <tr>
                     <th>Name</th>
                     <th>Cards</th>
+                    <th>Deck Types</th>
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -90,10 +91,11 @@
                                 <p>{{ $card->name }} (x{{ $card->pivot->quantity }})</p>
                             @endforeach
                         </td>
+                        <td>{{ $deck->deckType->name ?? 'Uncategorized' }}</td>
                         <td>
                             <div class="btn-group" role="group">
                                 <a class="btn btn-warning mr-2" href="{{ route('decks.edit', $deck) }}">
-                                    Edit Deck Name
+                                    Edit Deck Name or Type
                                 </a>
                                 <form action="{{ route('decks.destroy', $deck) }}" method="POST">
                                     @csrf

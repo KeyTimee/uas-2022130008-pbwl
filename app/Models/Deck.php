@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Deck extends Model
 {
     protected $table = 'decks';
-    protected $fillable = ['user_id', 'name'];
+    protected $fillable = ['user_id', 'name', 'deck_type_id'];
 
     public function user()
     {
@@ -18,5 +18,10 @@ class Deck extends Model
     public function cards()
     {
         return $this->belongsToMany(Card::class)->withPivot('quantity');
+    }
+
+    public function deckType()
+    {
+        return $this->belongsTo(DeckType::class);
     }
 }

@@ -6,6 +6,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DeckController;
 use App\Http\Controllers\DeckCardsController;
 use App\Http\Controllers\MainController;
+use App\Http\Controllers\DeckTypeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,6 +34,8 @@ Route::resource('categories', CategoryController::class);
 Route::get('/decks/index', [DeckController::class, 'index'])->name('decks.index');
 Route::post('/decks/create', [DeckController::class, 'create'])->name('decks.create');
 Route::resource('decks', DeckController::class);
+
+Route::resource('deck_types', DeckTypeController::class);
 
 Route::get('/deck', [DeckCardsController::class, 'index'])->name('deckcards.index');
 Route::post('/deck/{card}', [DeckCardsController::class, 'addToDeck'])->name('deckcards.add');

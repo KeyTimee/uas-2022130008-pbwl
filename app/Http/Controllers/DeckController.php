@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Deck;
+use App\Models\DeckType;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
@@ -76,7 +77,8 @@ class DeckController extends Controller
         }
 
         // Tampilkan halaman edit
-        return view('decks.edit', compact('deck'));
+        $deckTypes = DeckType::where('is_active', true)->get();
+        return view('decks.edit', compact('deck', 'deckTypes'));
     }
 
     /**
@@ -92,11 +94,13 @@ class DeckController extends Controller
         // Validasi input
         $request->validate([
             'name' => 'required|string|max:255',
+            'deck_type_id' => 'nullable|exists:deck_types,id',
         ]);
 
         // Update nama deck
         $deck->update([
             'name' => $request->name,
+            'deck_type_id' => $request->deck_type_id,
         ]);
 
         return redirect()->route('decks.index')->with('success', 'Deck berhasil diupdate.');
