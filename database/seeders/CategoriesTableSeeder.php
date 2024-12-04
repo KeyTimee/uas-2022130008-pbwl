@@ -20,6 +20,7 @@ class CategoriesTableSeeder extends Seeder
             ['name' => 'Mage', 'description' => 'Caster of powerful spells'],
             ['name' => 'Druid', 'description' => 'Nature-based magic wielder'],
             ['name' => 'Hunter', 'description' => 'Ranged attacker with traps'],
+            ['name' => 'Neutral', 'description' => 'Universal for every Class'],
             // Tambahkan kelas lainnya sesuai kebutuhan
         ]);
     }

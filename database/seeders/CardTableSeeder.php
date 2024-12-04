@@ -62,7 +62,7 @@ class CardTableSeeder extends Seeder
                 'description' => 'A fierce battlefiend.',
                 'is_legendary' => 0,
                 'photo' => 'public/Battlefiend_full.jpg',
-                'category_id' => null,
+                'category_id' => 5,
             ),
             4 =>
             array(
@@ -86,7 +86,7 @@ class CardTableSeeder extends Seeder
                 'description' => 'Big Time!',
                 'is_legendary' => 0,
                 'photo' => 'public/BigTime.jpg',
-                'category_id' => null,
+                'category_id' => 5,
             ),
             6 =>
             array(
@@ -134,7 +134,7 @@ class CardTableSeeder extends Seeder
                 'description' => 'Deal 3 damage to all enemy minions and freeze them.',
                 'is_legendary' => 0,
                 'photo' => 'public/Blizzard.jpg',
-                'category_id' => null,
+                'category_id' => 5,
             ),
             10 =>
             array(
@@ -194,7 +194,7 @@ class CardTableSeeder extends Seeder
                 'description' => 'Corrupt the power of your enemies.',
                 'is_legendary' => 0,
                 'photo' => 'public/Corrupted.jpg',
-                'category_id' => null,
+                'category_id' => 5,
             ),
             15 =>
             array(
@@ -218,7 +218,7 @@ class CardTableSeeder extends Seeder
                 'description' => 'A cultist with dangerous powers.',
                 'is_legendary' => 0,
                 'photo' => 'public/Cult_Neophyte_full.jpg',
-                'category_id' => null,
+                'category_id' => 5,
             ),
             17 =>
             array(
@@ -314,7 +314,7 @@ class CardTableSeeder extends Seeder
                 'description' => 'Galakrond unleashed in all his glory.',
                 'is_legendary' => 1,
                 'photo' => 'public/Galakrond2C_the_Nightmare_full.jpg',
-                'category_id' => null,
+                'category_id' => 5,
             ),
             25 =>
             array(
@@ -362,7 +362,7 @@ class CardTableSeeder extends Seeder
                 'description' => 'Khartut, a mighty defender.',
                 'is_legendary' => 0,
                 'photo' => 'public/Khartut_Defender_full.jpg',
-                'category_id' => null,
+                'category_id' => 5,
             ),
             29 =>
             array(
@@ -422,7 +422,7 @@ class CardTableSeeder extends Seeder
                 'description' => 'Maiev Shadowsong, a fierce warrior.',
                 'is_legendary' => 1,
                 'photo' => 'public/Maiev_Shadowsong_29_full.jpg',
-                'category_id' => null,
+                'category_id' => 5,
             ),
             34 =>
             array(
@@ -566,7 +566,7 @@ class CardTableSeeder extends Seeder
                 'description' => 'Prince Keleseth, a dark prince.',
                 'is_legendary' => 1,
                 'photo' => 'public/PrinceKeleseth.jpg',
-                'category_id' => null,
+                'category_id' => 5,
             ),
             46 =>
             array(
@@ -590,7 +590,7 @@ class CardTableSeeder extends Seeder
                 'description' => 'Rockpool Hunter, fierce in battle.',
                 'is_legendary' => 0,
                 'photo' => 'public/Rockpool.jpg',
-                'category_id' => null,
+                'category_id' => 5,
             ),
             48 =>
             array(
@@ -650,7 +650,7 @@ class CardTableSeeder extends Seeder
                 'description' => 'A quick and elusive spirit lynx.',
                 'is_legendary' => 0,
                 'photo' => 'public/SpiritLynx.jpg',
-                'category_id' => null,
+                'category_id' => 5,
             ),
             53 =>
             array(
@@ -674,7 +674,7 @@ class CardTableSeeder extends Seeder
                 'description' => 'Reno, the amazing adventurer.',
                 'is_legendary' => 1,
                 'photo' => 'public/The_Amazing_Reno_29_full.jpg',
-                'category_id' => null,
+                'category_id' => 5,
             ),
             55 =>
             array(
@@ -698,7 +698,7 @@ class CardTableSeeder extends Seeder
                 'description' => 'A student transferring with new powers.',
                 'is_legendary' => 0,
                 'photo' => 'public/Transfer_Student_full.jpg',
-                'category_id' => null,
+                'category_id' => 5,
             ),
             57 =>
             array(
@@ -734,7 +734,7 @@ class CardTableSeeder extends Seeder
                 'description' => 'War Kodo, a mighty beast of battle.',
                 'is_legendary' => 0,
                 'photo' => 'public/WarKodo.jpg',
-                'category_id' => null,
+                'category_id' => 5,
             ),
             60 =>
             array(
