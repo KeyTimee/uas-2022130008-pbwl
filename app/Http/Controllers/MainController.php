@@ -12,25 +12,26 @@ class MainController extends Controller
      */
     public function __invoke(Request $request)
     {
-        // Query awal
+        // Ambil data filter
+        $search = $request->input('search');
+        $categories = $request->input('categories', []);
+
+        // Query kartu berdasarkan filter
         $query = Card::query();
 
-        // Filter berdasarkan kategori
-        if ($categories = $request->input('categories')) {
+        if ($search) {
+            $query->where('name', 'like', '%' . $search . '%');
+        }
+
+        if (!empty($categories)) {
             $query->whereHas('category', function ($q) use ($categories) {
                 $q->whereIn('name', $categories);
             });
         }
 
-        // Cek jika request memiliki parameter 'search' untuk pencarian nama kartu
-        if ($request->filled('search')) {
-            $query->where('name', 'like', "%{$request->search}%");
-        }
+        // Dapatkan hasil paginasi
+        $cards = $query->paginate(12);
 
-        // Ambil data dengan pagination dan sertakan parameter 'search' dan 'categories' untuk query string
-        $cards = $query->paginate(12)->appends($request->only('search', 'categories'));
-
-        // Kembalikan ke view
         return view('main', compact('cards'));
     }
 }

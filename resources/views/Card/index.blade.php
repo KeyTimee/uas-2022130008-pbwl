@@ -78,7 +78,7 @@
                         <th>Health</th>
                         <th>Description</th>
                         <th>Legendary</th>
-                        <th>Aksi</th>
+                        <th>Actions</th>
                     </tr>
                 </thead>
 

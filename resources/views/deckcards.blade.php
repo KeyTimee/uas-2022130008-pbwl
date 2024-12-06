@@ -44,6 +44,10 @@
             background-color: #e6b800;
             border-color: #e6b800;
         }
+
+        .form-select option {
+            color: black;
+        }
     </style>
 
     <div class="container">
@@ -61,10 +65,8 @@
             </div>
         @endif
 
-        <!-- Tombol kembali ke halaman utama -->
-        <div class="mb-3">
-            <a href="{{ url('/add') }}" class="btn btn-secondary">Add More</a>
-        </div>
+        <a href="{{ url('/add') . '?' . http_build_query(request()->except('page')) }}" class="btn btn-secondary">Add More</a>
+
 
         <!-- Form untuk input nama deck -->
         <form action="{{ route('decks.create') }}" method="POST">

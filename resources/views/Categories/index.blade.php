@@ -73,10 +73,10 @@
                 <thead>
                     <tr>
                         <th>#ID</th>
-                        <th>Category Name</th>
+                        <th>Category/Class Name</th>
                         <th>Description</th>
                         <th>Is Active?</th>
-                        <th>Aksi</th>
+                        <th>Actions</th>
                     </tr>
                 </thead>
 

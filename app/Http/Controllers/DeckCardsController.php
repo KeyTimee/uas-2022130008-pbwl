@@ -56,7 +56,7 @@ class DeckCardsController extends Controller
             $user->cards()->attach($card, ['quantity' => $quantityToAdd]);
         }
 
-        return redirect()->route('deckcards.index')->with('success', 'Kartu berhasil ditambahkan ke dalam deck.');
+        return redirect()->route('deckcards.index', $request->except('_token'))->with('success', 'Kartu berhasil ditambahkan ke dalam deck.');
     }
 
 
