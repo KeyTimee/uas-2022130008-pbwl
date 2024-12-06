@@ -70,13 +70,13 @@
                                         href="{{ route('categories.index') }}">{{ __('Class/Categories') }}</a>
                                 </li>
                                 <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('deck_types.index') }}">{{ __('Deck Types') }}</a>
+                                </li>
+                                <li class="nav-item">
                                     <a class="nav-link" href="{{ url('/decks') }}">{{ __('Deck List') }}</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ url('/deck') }}">{{ __('New Deck') }}</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('deck_types.index') }}">{{ __('Deck Types') }}</a>
                                 </li>
                             @else
                                 <!-- Menu untuk pengguna non-admin -->
