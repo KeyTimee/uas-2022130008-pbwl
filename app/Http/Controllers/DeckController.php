@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Deck;
+use App\Models\Card;
 use App\Models\DeckType;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class DeckController extends Controller
 {
@@ -98,6 +100,8 @@ class DeckController extends Controller
             abort(403, 'Unauthorized action.');
         }
 
+        $deck->load('cards');
+
         // Tampilkan halaman edit
         $deckTypes = DeckType::where('is_active', true)->get();
         return view('decks.edit', compact('deck', 'deckTypes'));
@@ -113,7 +117,7 @@ class DeckController extends Controller
             abort(403, 'Unauthorized action.');
         }
 
-        // Validasi input
+        // Validasi input untuk deck
         $request->validate([
             'name' => 'required|string|max:255',
             'deck_class' => 'required|string|max:255',
@@ -127,8 +131,24 @@ class DeckController extends Controller
             'deck_type_id' => $request->deck_type_id,
         ]);
 
+        // Update atau hapus kartu berdasarkan quantity
+        if ($request->has('quantity')) {
+            foreach ($request->quantity as $cardId => $quantity) {
+                if ($quantity == 0) {
+                    // Jika quantity 0, hapus kartu dari deck
+                    $deck->cards()->detach($cardId);
+                } else {
+                    // Jika quantity lebih dari 0, update quantity kartu
+                    $deck->cards()->updateExistingPivot($cardId, ['quantity' => $quantity]);
+                }
+            }
+        }
+
         return redirect()->route('decks.index')->with('success', 'Deck berhasil diupdate.');
     }
+
+
+
 
     /**
      * Remove the specified resource from storage.
@@ -137,5 +157,18 @@ class DeckController extends Controller
     {
         $deck->delete();
         return redirect()->route('decks.index')->with('success', 'Deck berhasil dihapus.');
+    }
+
+    public function removeCard(Deck $deck, Card $card)
+    {
+        // Pastikan deck milik user yang sedang login
+        if ($deck->user_id !== Auth::id()) {
+            abort(403, 'Unauthorized action.');
+        }
+
+        // Hapus kartu dari deck
+        $deck->cards()->detach($card->id);
+
+        return redirect()->back()->with('success', 'Card removed from the deck.');
     }
 }

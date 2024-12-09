@@ -39,4 +39,6 @@ Route::resource('deck_types', DeckTypeController::class);
 
 Route::get('/deck', [DeckCardsController::class, 'index'])->name('deckcards.index');
 Route::post('/deck/{card}', [DeckCardsController::class, 'addToDeck'])->name('deckcards.add');
+Route::delete('/decks/{deck}/cards/{card}', [DeckController::class, 'removeCard'])->name('decks.cards.remove');
 Route::delete('/deck/{card}', [DeckCardsController::class, 'removeFromDeck'])->name('deckcards.remove');
+
