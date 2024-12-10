@@ -91,7 +91,7 @@
             <!-- Cards in Deck -->
             <div class="mt-4">
                 <h4>Cards in Deck</h4>
-                <table class="table table-striped">
+                <table class="table table-dark table-striped">
                     <thead>
                         <tr>
                             <th>Card Name</th>
